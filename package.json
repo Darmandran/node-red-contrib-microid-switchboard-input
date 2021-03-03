@@ -1,0 +1,13 @@
+{
+    "name"         : "node-red-contrib-microid-switch-board-input",
+    "version"      : "0.1.0",
+    "description"  : "MicroID Switch-Board-Input ver. 1.0",
+    "dependencies": {
+     },
+    "keywords": [ "node-red", "microid" ],
+    "node-red"     : {
+        "nodes": {
+            "Switch-Board-Input": "Switch-Board-Input.js"
+        }
+    }
+}
