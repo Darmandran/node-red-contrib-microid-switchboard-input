@@ -11,15 +11,6 @@
       {v:"8", t:"8"},
       {v:"9", t:"9"},
       {v:"10", t:"10"},
-
-      {v:"11", t:"11"},
-      {v:"12", t:"12"},
-      {v:"13", t:"13"},
-      {v:"14", t:"14"},
-      {v:"15", t:"15"},
-
-      {v:"16", t:"16"},
-
     ];
 
     RED.nodes.registerType('Switch-Board-Input',{
@@ -28,8 +19,8 @@
         defaults: {
           name: {value:""},
           state: {value:"BUTTON"},
-          board: {value:"IOBOARD-v1"},
-          MAC:{value:"MICROID-0000"},
+          board: {value:"SWITCH-v01"},
+          MAC:{value:"SWITCHB-0000"},
           input:{value:"any"}
         },
         inputs:1,
@@ -38,7 +29,7 @@
             var node = this;  
             $("#node-input-state").change(function() {
                 $('#node-input-input').empty()
-                for (var i = 0; i < 16; i++) {
+                for (var i = 0; i < 10; i++) {
                     var value = values[i].v;
                     var text = values[i].t;
                     $('#node-input-input').append($("<option></option>").attr("value", value).text(text));
@@ -84,7 +75,7 @@
     <div class="form-row">
         <label for="node-input-board"><i class="fa fa-microchip"></i> Device</label>
         <select type="text" id="node-input-board" style="width: 300px;">
-            <option value="IOBOARD-v1">IOBOARD-v1</option>
+            <option value="SWITCH-v01">SWITCH-v01</option>
         </select>
     </div>
     <div class="form-row">
@@ -95,6 +86,8 @@
         <label for="node-input-state"><i class="fa fa-lightbulb-o"></i> Type</label>
         <select type="text" id="node-input-state" style="width: 150px;">
             <option value="BUTTON">Button Trigger</option>
+            <option value="high">Button HIGH</option>
+            <option value="low">Button LOW</option>
         </select>
     </div>
     <div class="form-row">

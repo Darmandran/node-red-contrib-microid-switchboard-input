@@ -24,35 +24,30 @@ module.exports = function(RED) {
 
             const {device,temp,status} = msg.payload
             
-            if(state=="BUTTON"){
-                if((input==="any" && msg.payload.deviceShadow.buttonTrigger!=0)|| input == msg.payload.deviceShadow.buttonTrigger){
-                    if(msg.payload.hasOwnProperty("deviceShadow.buttonState")){
-                        msg.payload.deviceShadow.buttonState = msg.payload.deviceShadow.buttonState==="high"? "high":"low"
-                    }
-                    
-                    // msg.payload = {...msg.payload|msg.payload.deviceShadow}
-                }else{
-                    return
-                }  
-            }else{
+            validTrigger = false;
 
-                if(input==="any"){
-                    var breakIsTrue = false;
-                    for (var i = 1; i <= 5; i++){
-                        if(relayState["RLY"+i] !== msg.payload.deviceShadow.relayState["RLY"+i]){
-                            relayState["RLY"+i] = msg.payload.deviceShadow.relayState["RLY"+i]
-                            breakIsTrue = true;
+            if(msg.payload.deviceShadow.buttonNumber.length>0){
+                if(input!="any"){
+                    for(key in msg.payload.deviceShadow.buttonNumber){
+                        if(msg.payload.deviceShadow.buttonNumber[key] == input){
+                            if(state=="BUTTON"){
+                                validTrigger = true;
+                            }else if(msg.payload.deviceShadow.buttonCondition[input-1] == state){
+                                validTrigger = true;
+                            }
                         }
                     }
-                    if(!breakIsTrue){return;}
-
-                }else if(relayState["RLY"+input] !== msg.payload.deviceShadow.relayState["RLY"+input]){
-                    relayState["RLY"+input] = msg.payload.deviceShadow.relayState["RLY"+input]
                 }else{
-                    return
-                }  
-                // msg.payload = {...msg.payload||msg.payload.relayState}
-            }
+                    validTrigger = true
+                }
+                
+                if(!validTrigger)return;
+
+                // msg.payload = {...msg.payload|msg.payload.deviceShadow}
+            }else{
+                return;
+            }  
+         
             
             node.send(msg);
         });
