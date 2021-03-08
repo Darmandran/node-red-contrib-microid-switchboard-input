@@ -1,7 +1,5 @@
 
-var relayState = {
-    RLY1:"",RLY2:"",RLY3:"",RLY4:"",RLY5:""
-};
+
 
 module.exports = function(RED) {
 
@@ -43,7 +41,6 @@ module.exports = function(RED) {
                 
                 if(!validTrigger)return;
 
-                // msg.payload = {...msg.payload|msg.payload.deviceShadow}
             }else{
                 return;
             }  
